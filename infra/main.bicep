@@ -27,19 +27,18 @@ param appServiceName string = 'app-${resourceToken}'
   'B1'
   'B2'
   'B3'
-  'S1'
-  'S2'
-  'S3'
   'P1v2'
   'P2v2'
   'P3v2'
 ])
-param appServicePlanSku string = 'S1'
+param appServicePlanSku string = 'B1'
+
+var appServicePlanLocation = 'canadacentral'
 
 // Create App Service Plan
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
   name: 'plan-${resourceToken}'
-  location: location
+  location: appServicePlanLocation
   tags: tags
   sku: {
     name: appServicePlanSku
@@ -53,7 +52,7 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
 // Create App Service
 resource appService 'Microsoft.Web/sites@2022-03-01' = {
   name: appServiceName
-  location: location
+  location: appServicePlanLocation
   tags: union(tags, {
     'azd-service-name': 'web'  // Add tag required by azd for deployment
   })
@@ -467,3 +466,5 @@ resource appServiceDiagnostics 'Microsoft.Insights/diagnosticSettings@2021-05-01
     ]
   }
 }
+
+
