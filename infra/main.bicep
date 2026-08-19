@@ -33,7 +33,7 @@ param appServiceName string = 'app-${resourceToken}'
 ])
 param appServicePlanSku string = 'B1'
 
-var appServicePlanLocation = 'canadacentral'
+param appServicePlanLocation string = location
 
 // Create App Service Plan
 resource appServicePlan 'Microsoft.Web/serverfarms@2022-03-01' = {
